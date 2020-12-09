@@ -8,6 +8,8 @@ import { createStackNavigator, Header } from 'react-navigation-stack';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { Image, TouchableOpacity, Platform, Dimensions, View, Text, ImageBackground } from 'react-native';
 
+import iconMenu from '../assets/images/icon-menu.png';
+
 global.currentScreenIndex = 0;
 
 //import { verifyNumberPush } from '../helpers/notificationHelper';
@@ -42,14 +44,8 @@ class NavigationDrawerStructure extends Component {
 class LogoSigeHeader extends Component {
   render() {
       return (
-        <View style={styles.containerHeader}>
-            <View style={ Platform.OS === 'ios' ? styles.containerLogoSigeIos : styles.containerLogoSigeAndroid }>
-              <Image 
-                  style={styles.LogoSige}
-                  source={logoSige}/>  
-            </View>
-            
-            <Text style={styles.textHeader} >HABILITAR `EQUIPAMENTO`</Text>
+        <View style={styles.containerHeader}>           
+            <Text style={styles.textHeader} >TIMELIME</Text>
         </View>
       );
   }
@@ -74,23 +70,7 @@ const Home_StackNavigator = createStackNavigator({
         headerForceInset: { bottom: 0 },
         headerBackTitle: null
       }),
-    },
-    Home: {
-      screen: HomeView,
-      navigationOptions: ({ navigation }) => ({
-        headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-        headerTitle: <LogoSigeHeader navigationProps={navigation} />,
-        headerTintColor: palette.secondary,
-        header: (props) => (
-          <Header {...props} />
-        ),
-        headerStyle: {
-          backgroundColor: palette.header
-        },
-        headerForceInset: { bottom: 0 },
-        headerBackTitle: null
-      }),
-    },    
+    },   
     
 });
 

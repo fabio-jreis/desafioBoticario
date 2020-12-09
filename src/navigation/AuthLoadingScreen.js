@@ -16,7 +16,8 @@ AuthLoadingScreen = ({ navigation }) => {
 
         console.log('verifyAuth');
 
-        navigation.navigate('Auth');
+        navigation.navigate('Main');
+        //navigation.navigate('Auth');
 
         //const userToken = await UserAsyncStorage.getToken();
         //var userInfo = await UserAsyncStorage.getProfile();

@@ -1,5 +1,5 @@
+import styles from './style';
 import React, { useState } from 'react';
-import styles from './style'
 import { View, Text, TextInput } from 'react-native';
 import Button from '../../components/Button/Button';
 
@@ -7,6 +7,10 @@ export default LoginView = (props) => {
 
    const [email, set_email] = useState('');
    const [password, set_password] = useState('');
+
+   const login = () => {
+       props.navigation.navigate('Main');
+   }
 
     return(
         <View style={styles.container}>
@@ -28,7 +32,7 @@ export default LoginView = (props) => {
                 placeholderTextColor="#000" 
             />           
 
-            <Button style={styles.buttonEnter} title="Entrar" /> 
+            <Button style={styles.buttonEnter} title="Entrar" onPress={login} /> 
         </View>
     )
 

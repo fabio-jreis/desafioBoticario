@@ -73,7 +73,7 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         position: 'absolute',
         fontSize: 15,
-        marginTop: 80,
+        //marginTop: 80,
         alignSelf: 'center'
     },    
     avatarContainer: {
