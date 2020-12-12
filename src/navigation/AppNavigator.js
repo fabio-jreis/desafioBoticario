@@ -1,12 +1,13 @@
 import styles from './style';
 import { palette }  from '../constants/Colors';
-import { HomeView, LoginView } from '../views';
+import { HomeView, LoginView, NewsView } from '../views';
 import AuthLoadingScreen from './AuthLoadingScreen';
 import React, { useEffect, Component } from 'react';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import { createStackNavigator, Header } from 'react-navigation-stack';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { Image, TouchableOpacity, Platform, Dimensions, View, Text, ImageBackground } from 'react-native';
+import CustomSidebarMenu from '../views/SideDrawer';
 
 import iconMenu from '../assets/images/icon-menu.png';
 
@@ -41,11 +42,21 @@ class NavigationDrawerStructure extends Component {
     }
 }
 
-class LogoSigeHeader extends Component {
+class HeaderHome extends Component {
   render() {
       return (
         <View style={styles.containerHeader}>           
             <Text style={styles.textHeader} >TIMELIME</Text>
+        </View>
+      );
+  }
+}
+
+class HeaderNews extends Component {
+  render() {
+      return (
+        <View style={styles.containerHeader}>           
+            <Text style={styles.textHeader} >NOVIDADES BOTICARIO</Text>
         </View>
       );
   }
@@ -59,7 +70,7 @@ const Home_StackNavigator = createStackNavigator({
       screen: HomeView,
       navigationOptions: ({ navigation }) => ({
         headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
-        headerTitle: <LogoSigeHeader navigationProps={navigation} />,
+        headerTitle: <HeaderHome navigationProps={navigation} />,
         headerTintColor: palette.secondary,
         header: (props) => (
           <Header {...props} />
@@ -70,7 +81,23 @@ const Home_StackNavigator = createStackNavigator({
         headerForceInset: { bottom: 0 },
         headerBackTitle: null
       }),
-    },   
+    },
+    News: {
+      screen: NewsView,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+        headerTitle: <HeaderNews navigationProps={navigation} />,
+        headerTintColor: palette.secondary,
+        header: (props) => (
+          <Header {...props} />
+        ),
+        headerStyle: {
+          backgroundColor: palette.header
+        },
+        headerForceInset: { bottom: 0 },
+        headerBackTitle: null
+      }),
+    },        
     
 });
 
@@ -84,7 +111,7 @@ const BtAppStack = createDrawerNavigator(
     },
     {
       //For the Custom sidebar menu we have to provide our CustomSidebarMenu
-      //contentComponent: CustomSidebarMenu,
+      contentComponent: CustomSidebarMenu,
 
       //Sidebar width
       drawerWidth: Dimensions.get('window').width - 130,

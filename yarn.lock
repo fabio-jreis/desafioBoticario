@@ -5851,6 +5851,11 @@ react-native-screens@^2.15.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.15.0.tgz#9b97c1881c4fcdf304bf363f0013225901625f44"
   integrity sha512-qTSQPy0WKHtlb8xt5gY0Gt6sdvfQUQAnFSqgsggW9UEvySbkHzpqOrOYNA79Ca8oXO0dCFwp6X8buIiDefa7+Q==
 
+react-native-text@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/react-native-text/-/react-native-text-1.0.8.tgz#d1004dfeb675de98fe0915b10c69ddeb977f6d55"
+  integrity sha512-F0Pn3DvhTz2njnQX8KwTah39sDp/qxg93B2JUCtKRkuHIgunzXiphZuvkvboGwrv8MnhdiqhK4OJwW4Rii2ZiQ==
+
 react-native-vector-icons@^7.0.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-7.1.0.tgz#145487d617b2a81d395d2cf64e6e065fcab3a454"
