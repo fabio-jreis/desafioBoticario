@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styles from './style';
 import { View, Text, FlatList, Image } from 'react-native';
+import { palette } from '../../constants/Colors';
 
 export default HomeView = (props) => {
 
     const [items, set_items] = useState([
            {
               "user":{
-                 "name":"O Boticário",
+                 "name":"Carlos Amadeu",
                  "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
               },
               "message":{
-                 "content":"Além disso, nossos funcionários e familiares receberão kits de proteção. Afinal, o cuidado começa aqui dentro, né?",
+                 "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
                  "created_at":"2020-02-02T16:10:33Z"
               }
            },
@@ -78,37 +79,57 @@ export default HomeView = (props) => {
         ]
      )
 
-    const TIMELINE = React.memo( ({item}) => {
-        return(
-            <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25, backgroundColor: 'red'}}>
+     const TIMELINE = React.memo( ({item}) => {
+      return(
+          <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25}}>
 
-                <View style={styles.card}>
-                    <Image
+              <View style={styles.card}>
+
+                  <View style={{flex: 0.30, flexDirection: 'row'}}>
+                     <Image
                         style={{width: 50, height: 50}}
-                        source={{uri: 'https://reactjs.org/logo-og.png'}}
-                    />                    
-                    <Text>{item.user.name}</Text>
-                    <Text>{item.message.content}</Text>
-                </View>
+                        source={{uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}
+                     />                    
+                     <Text style={{marginLeft: 10}}>{item.user.name}</Text>                     
+                  </View>
 
-            </View>
-        )
-    }) 
+                  <View style={{flex: 0.70, paddingTop: 30}}>
+                     <Text>{item.message.content}</Text>
+                  </View>
 
-    return(
-        <View style={styles.container}>
-            <View style={{flex: 1, width: '100%', backgroundColor: 'red'}}>
+              </View>
+
+          </View>
+      )
+  })      
+
+     const renderTimeline = () => {
+        return(
+           <View style={{flex: 1}}>
                 <FlatList
                     data={items}
                     keyExtractor={ (item, index) => index.toString()}
                     renderItem = { ({item, index}) => (
                         <TIMELINE item={item} />
-                    )}
-                
+                    )}                
                 />
 
-                
-            </View>
+           </View>
+        )
+     }
+
+
+    return(
+        <View style={styles.container}>
+           <View style={{flex: 1}}>
+              <View style={{flex: 0.3}}>
+
+              </View>
+              <View style={{flex: 0.7}}>
+                  {renderTimeline()}
+              </View>
+
+           </View>
         </View>
     )
 
