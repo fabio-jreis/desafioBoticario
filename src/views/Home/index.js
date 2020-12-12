@@ -3,18 +3,24 @@ import styles from './style';
 import { View, Text, FlatList, Image, TextInput } from 'react-native';
 import { palette } from '../../constants/Colors';
 import Button from '../../components/Button/Button';
+import iconProfile from '../../assets/images/icon-profile.png';
+import { convertDate } from '../../helpers/generalHelper';
+import UserAsyncStorage from '../../asyncStorage/UserAsyncStorage';
 
 export default HomeView = (props) => {
 
    const [updateTimeline, set_updateTimeline] = useState(true) 
    const [text, set_text] = useState(null);
+   const [name, set_name] = useState('');
 
-   
+   //const [posts, set_posts] = useState([]);
+
+ 
     const [posts, set_posts] = useState([
            {
               "user":{
                  "name":"Mário",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -24,7 +30,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"Amadeu",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -34,7 +40,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"Roberto",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -44,7 +50,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"Priscila",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -54,7 +60,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"Júlia",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -64,7 +70,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"José",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -74,7 +80,7 @@ export default HomeView = (props) => {
            {
               "user":{
                  "name":"Matheus",
-                 "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                 "profile_picture": iconProfile
               },
               "message":{
                  "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
@@ -83,29 +89,22 @@ export default HomeView = (props) => {
            }
         ]
      )
-
      
      useEffect( () => {
 
-      //console.log('posts: ', posts);
-      
-      /*
-      setTimeout(() => {
-         set_updateTimeline(false);
-      }, 100);
+      getName();
 
-      setTimeout(() => {
-         set_updateTimeline(true);
-      }, 200);
-      */
+     }, []);
 
-     }, [posts]);
+     const getName = async () => {
+         var objLogin = JSON.parse(await UserAsyncStorage.getLogin());
+         set_name(objLogin.name);
+     }
      
 
      const TIMELINE = React.memo( ({item}) => {
 
-      //console.log('ITEM: ', item);
-
+      var datePost = convertDate(item.message.created_at, "ISO8601", "DD/MM/AAAA HH:MM");
 
       return(
           <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25}}>
@@ -115,9 +114,12 @@ export default HomeView = (props) => {
                   <View style={{flex: 0.30, flexDirection: 'row'}}>
                      <Image
                         style={{width: 50, height: 50}}
-                        source={{uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}
-                     />                    
-                     <Text style={{marginLeft: 10}}>{item.user.name}</Text>                     
+                        source={item.user.profile_picture}
+                     />   
+                     <View style={{flex: 1, flexDirection: 'column'}}>
+                        <Text style={{marginLeft: 10}}>{item.user.name}</Text> 
+                        <Text style={{marginLeft: 10}}>Data postagem: { datePost }</Text>
+                     </View>                 
                   </View>
 
                   <View style={{flex: 0.70, paddingTop: 30}}>
@@ -150,27 +152,24 @@ export default HomeView = (props) => {
 
      const sendPost = () => {
 
+         var dateCreateded = new Date();
+
          if(text !== null && text !== '') {
             var postObj = [{
                "user":{
-                  "name":"Pegar o nome original",
-                  "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+                  "name": name,
+                  "profile_picture": iconProfile
                },
                "message":{
                   "content": text,
-                  "created_at":"2020-02-06T11:10:00Z"
+                  "created_at": dateCreateded.toISOString()
                }
                
             }];
 
-            //var newObj = [{...posts, ...postObj}];
             var newObj = [...postObj, ...posts];
-
-            console.log('posts: ', posts);
-            console.log('newObj: ', newObj);
-
             set_posts(newObj);
-            //console.log('posts: ', posts);
+
          }
 
      }

@@ -21,7 +21,6 @@ export default class CustomSidebarMenu extends Component {
     }
 
     navegateRoutes = (item) => {
-        console.log('item: ', item);
         this.props.navigation.navigate(item.screenToNavigate);
     }
 

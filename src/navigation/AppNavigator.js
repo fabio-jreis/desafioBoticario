@@ -124,13 +124,13 @@ const AuthStack = createStackNavigator({
     headerMode: 'none'
 });
 
-/*
-const CadastroStack = createStackNavigator({
-  cadastro: CadastroTecnicoView
+
+const RegisterStack = createStackNavigator({
+  cadastro: newUserView
 },{
   headerMode: 'none'
 });
-*/
+
 
 /*
 const PreAppStack = createStackNavigator({
@@ -144,8 +144,8 @@ const AppNavigator = createSwitchNavigator({
     AuthLoader: AuthLoadingScreen,
     Main: BtAppStack,
     Auth: AuthStack,
+    Register: RegisterStack
     //Pre: PreAppStack,
-    //Cadastro: CadastroStack
 },{
 
 });

@@ -1,15 +1,37 @@
 import styles from './style';
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Button from '../../components/Button/Button';
+import UserAsyncStorage from '../../asyncStorage/UserAsyncStorage';
+
 
 export default LoginView = (props) => {
 
    const [email, set_email] = useState('');
    const [password, set_password] = useState('');
 
-   const login = () => {
-       props.navigation.navigate('Main');
+   const login = async () => {
+
+    var loginObj= JSON.parse(await UserAsyncStorage.getLogin());
+
+    if(email === loginObj.email && password === loginObj.password) {
+        props.navigation.navigate('Main');
+    } else {
+        Alert.alert( 
+            '', 'Erro ao efetuar o Login, por favor tente novamente',
+            [
+                { text: 'Ok'}
+            ],
+            {cancelable: false}  
+        );   
+        return;         
+    }
+
+   }
+
+   const newUser = () => {
+    //newUser
+    props.navigation.navigate('Register');
    }
 
     return(
@@ -33,6 +55,10 @@ export default LoginView = (props) => {
             />           
 
             <Button style={styles.buttonEnter} title="Entrar" onPress={login} /> 
+
+            <TouchableOpacity style={{marginTop: 30}} onPress={newUser}>
+                <Text style={{color: 'white'}}>Cadastre-se</Text>
+            </TouchableOpacity>
         </View>
     )
 
