@@ -994,12 +994,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@react-native-async-storage/async-storage@react-native-community/async-storage":
-  version "1.13.0"
-  resolved "https://codeload.github.com/react-native-community/async-storage/tar.gz/bfd76c7508bcc35d88f6b6c8d2fd525466f77ba0"
-  dependencies:
-    deep-assign "^3.0.0"
-
 "@react-native-community/async-storage@^1.12.1":
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"

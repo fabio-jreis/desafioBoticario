@@ -1,22 +1,28 @@
 import styles from './style';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Button from '../../components/Button/Button';
 import UserAsyncStorage from '../../asyncStorage/UserAsyncStorage';
-
+import appContext from '../../context/app-context';
 
 export default LoginView = (props) => {
+
+    const context = useContext(appContext);
 
    const [email, set_email] = useState('');
    const [password, set_password] = useState('');
 
    const login = async () => {
 
+    context.showLoading(true);
+
     var loginObj= JSON.parse(await UserAsyncStorage.getLogin());
 
     if(email === loginObj.email && password === loginObj.password) {
+        context.showLoading(false);
         props.navigation.navigate('Main');
     } else {
+        context.showLoading(false);
         Alert.alert( 
             '', 'Erro ao efetuar o Login, por favor tente novamente',
             [
