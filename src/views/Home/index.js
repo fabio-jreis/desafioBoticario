@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from './style';
-import { View, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, TextInput } from 'react-native';
 import { palette } from '../../constants/Colors';
+import Button from '../../components/Button/Button';
 
 export default HomeView = (props) => {
 
@@ -118,14 +119,39 @@ export default HomeView = (props) => {
         )
      }
 
+     const renderPostTimeline = () => {
+        return(
+           <View style={{paddingLeft: 30, marginRight: 30}}>
+              
+              <View style={{marginTop: 30}}>
+                 <Text>Digite algo para seus amigos:</Text>
+                  <TextInput
+                        multiline
+                        maxLength={280}
+                        style={{
+                           backgroundColor: 'white',
+                           marginTop: 10,
+                           height: 100
+                        }}
+                  />
+              </View>
+                  
+              <View style={{justifyContent: 'center', alignContent: 'center', marginTop: 25}}>
+                  <Button title="Postar"></Button>
+              </View>
+              
+           </View>
+        )
+     }
+
 
     return(
         <View style={styles.container}>
            <View style={{flex: 1}}>
-              <View style={{flex: 0.3}}>
-
+              <View style={{flex: 0.4}}>
+                  {renderPostTimeline()}
               </View>
-              <View style={{flex: 0.7}}>
+              <View style={{flex: 0.6}}>
                   {renderTimeline()}
               </View>
 
