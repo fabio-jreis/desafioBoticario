@@ -80,7 +80,7 @@ export default NewsView = (props) => {
 
     const TIMELINE = React.memo( ({item}) => {
         return(
-            <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25, backgroundColor: 'red'}}>
+            <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25, paddingTop: 15}}>
 
                 <View style={styles.card}>
                     <Image
@@ -88,7 +88,7 @@ export default NewsView = (props) => {
                         source={{uri: 'https://reactjs.org/logo-og.png'}}
                     />                    
                     <Text>{item.user.name}</Text>
-                    <Text>{item.message.content}</Text>
+                    <Text style={{marginTop: 10}}>{item.message.content}</Text>
                 </View>
 
             </View>
@@ -97,7 +97,7 @@ export default NewsView = (props) => {
 
     return(
         <View style={styles.container}>
-            <View style={{flex: 1, width: '100%', backgroundColor: 'red'}}>
+            <View style={{flex: 1, width: '100%'}}>
                 <FlatList
                     data={items}
                     keyExtractor={ (item, index) => index.toString()}
