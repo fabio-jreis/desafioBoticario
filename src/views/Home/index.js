@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './style';
 import { View, Text, FlatList, Image, TextInput } from 'react-native';
 import { palette } from '../../constants/Colors';
@@ -6,10 +6,14 @@ import Button from '../../components/Button/Button';
 
 export default HomeView = (props) => {
 
-    const [items, set_items] = useState([
+   const [updateTimeline, set_updateTimeline] = useState(true) 
+   const [text, set_text] = useState(null);
+
+   
+    const [posts, set_posts] = useState([
            {
               "user":{
-                 "name":"Carlos Amadeu",
+                 "name":"O Boticário",
                  "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
               },
               "message":{
@@ -80,7 +84,29 @@ export default HomeView = (props) => {
         ]
      )
 
+     
+     useEffect( () => {
+
+      //console.log('posts: ', posts);
+      
+      /*
+      setTimeout(() => {
+         set_updateTimeline(false);
+      }, 100);
+
+      setTimeout(() => {
+         set_updateTimeline(true);
+      }, 200);
+      */
+
+     }, [posts]);
+     
+
      const TIMELINE = React.memo( ({item}) => {
+
+      //console.log('ITEM: ', item);
+
+
       return(
           <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25}}>
 
@@ -107,16 +133,46 @@ export default HomeView = (props) => {
      const renderTimeline = () => {
         return(
            <View style={{flex: 1}}>
+                
+              {posts && 
                 <FlatList
-                    data={items}
+                    data={posts}
                     keyExtractor={ (item, index) => index.toString()}
                     renderItem = { ({item, index}) => (
                         <TIMELINE item={item} />
                     )}                
-                />
+                />              
+              }  
 
            </View>
         )
+     }
+
+     const sendPost = () => {
+
+         if(text !== null && text !== '') {
+            var postObj = [{
+               "user":{
+                  "name":"Pegar o nome original",
+                  "profile_picture":"https://pbs.twimg.com/profile_images/1240676323913347074/Gg09hEPx_400x400.jpg"
+               },
+               "message":{
+                  "content": text,
+                  "created_at":"2020-02-06T11:10:00Z"
+               }
+               
+            }];
+
+            //var newObj = [{...posts, ...postObj}];
+            var newObj = [...postObj, ...posts];
+
+            console.log('posts: ', posts);
+            console.log('newObj: ', newObj);
+
+            set_posts(newObj);
+            //console.log('posts: ', posts);
+         }
+
      }
 
      const renderPostTimeline = () => {
@@ -133,11 +189,12 @@ export default HomeView = (props) => {
                            marginTop: 10,
                            height: 100
                         }}
+                        onChangeText={set_text}
                   />
               </View>
                   
               <View style={{justifyContent: 'center', alignContent: 'center', marginTop: 25}}>
-                  <Button title="Postar"></Button>
+                  <Button title="Postar" onPress={ () => sendPost() }/>
               </View>
               
            </View>
@@ -152,7 +209,7 @@ export default HomeView = (props) => {
                   {renderPostTimeline()}
               </View>
               <View style={{flex: 0.6}}>
-                  {renderTimeline()}
+                  {updateTimeline && renderTimeline()}
               </View>
 
            </View>
