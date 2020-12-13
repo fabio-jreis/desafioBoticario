@@ -16,15 +16,26 @@ export default LoginView = (props) => {
 
     context.showLoading(true);
 
-    var loginObj= JSON.parse(await UserAsyncStorage.getLogin());
-
+    var auxLogin = await UserAsyncStorage.getLogin();
+    if(auxLogin === null) {
+        context.showLoading(false);
+        Alert.alert( 
+            '', 'Faça um cadastro antes de realizar o login.',
+            [
+                { text: 'Ok'}
+            ],
+            {cancelable: false}  
+        );   
+        return;        
+    }
+    var loginObj= JSON.parse(auxLogin);
     if(email === loginObj.email && password === loginObj.password) {
         context.showLoading(false);
         props.navigation.navigate('Main');
     } else {
         context.showLoading(false);
         Alert.alert( 
-            '', 'Erro ao efetuar o Login, por favor tente novamente',
+            '', 'Erro ao efetuar o Login, E-mail ou Senha estão incorretos.',
             [
                 { text: 'Ok'}
             ],

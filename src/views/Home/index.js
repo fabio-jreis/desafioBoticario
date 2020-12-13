@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './style';
-import { View, Text, FlatList, Image, TextInput, TouchableOpacity } from 'react-native';
+import { ScrollView, View, Text, FlatList, Image, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { palette } from '../../constants/Colors';
 import Button from '../../components/Button/Button';
 import iconProfile from '../../assets/images/icon-profile.png';
 import { convertDate } from '../../helpers/generalHelper';
 import UserAsyncStorage from '../../asyncStorage/UserAsyncStorage';
+
 
 export default HomeView = (props) => {
 
@@ -212,15 +213,17 @@ export default HomeView = (props) => {
       return(
           <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25}}>
               
-            <View style={{flex: 1, flexDirection: 'row'}}>
-               <TouchableOpacity onPress={() => {deletePost(item.id)}}>
-                     <Text>APAGAR</Text>
-               </TouchableOpacity>    
+              {item.idUsuario === 6 && 
+               <View style={{flex: 1, flexDirection: 'row'}}>
+                  <TouchableOpacity onPress={() => {deletePost(item.id)}}>
+                        <Text>APAGAR</Text>
+                  </TouchableOpacity>    
 
-               <TouchableOpacity style={{marginLeft: 10}} onPress={() => {editePost(item.id)}}>
-                     <Text>EDITAR</Text>
-               </TouchableOpacity>  
-            </View>
+                  <TouchableOpacity style={{marginLeft: 10}} onPress={() => {editePost(item.id)}}>
+                        <Text>EDITAR</Text>
+                  </TouchableOpacity>  
+               </View>
+              }
 
               <View style={styles.card}>
 
@@ -247,7 +250,7 @@ export default HomeView = (props) => {
 
      const renderTimeline = () => {
         return(
-           <View style={{flex: 1}}>
+           <View style={{flex: 1, marginTop: 50}}>
                 
               {posts && 
                 <FlatList
@@ -325,16 +328,20 @@ export default HomeView = (props) => {
 
     return(
         <View style={styles.container}>
-           <View style={{flex: 1}}>
-              <View style={{flex: 0.4}}>
-                  {renderPostTimeline()}
-              </View>
-              <View style={{flex: 0.6}}>
-                  {updateTimeline}
-                  {renderTimeline()}
-              </View>
-
-           </View>
+           <ScrollView>
+            <KeyboardAvoidingView>
+                  <View style={{flex: 1}}>
+                     <View style={{flex: 0.4}}>
+                           {renderPostTimeline()}
+                     </View>
+                     <View style={{flex: 0.6}}>
+                           {updateTimeline}
+                           {renderTimeline()}
+                     </View>
+                  </View>
+            </KeyboardAvoidingView>
+              
+           </ScrollView>
         </View>
     )
 
