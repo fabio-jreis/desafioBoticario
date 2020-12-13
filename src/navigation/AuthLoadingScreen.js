@@ -13,32 +13,7 @@ AuthLoadingScreen = ({ navigation }) => {
      
     
     verifyAuth = async () => {
-
-        console.log('verifyAuth');
-
-        //navigation.navigate('Main');
         navigation.navigate('Auth');
-
-        //const userToken = await UserAsyncStorage.getToken();
-        //var userInfo = await UserAsyncStorage.getProfile();
-        //var info = JSON.parse(userInfo);
-
-/*
-        if(userToken) {
-
-            var loja = await UserAsyncStorage.getLoja();
-            if(loja === null) {
-                navigation.navigate('Pre');
-            } else {
-                await vAccess(info);
-                navigation.navigate('Main');
-            }
-
-        } else {
-            navigation.navigate('Auth');
-        }
-*/
-
     };    
 
     return(

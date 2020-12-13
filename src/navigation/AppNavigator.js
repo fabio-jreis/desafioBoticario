@@ -13,21 +13,15 @@ import iconMenu from '../assets/images/icon-menu.png';
 
 global.currentScreenIndex = 0;
 
-//import { verifyNumberPush } from '../helpers/notificationHelper';
-//import UserAsyncStorage from '../asynStorage/UserAsyncStorage';
-
-//Navigation Drawer Structure for all screen
 class NavigationDrawerStructure extends Component {
-    //Top Navigation Header with Donute Button
     toggleDrawer = () => {
-      //Props to open/close the drawer
       this.props.navigationProps.toggleDrawer();
     };
     render() {
       return (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity hitSlop={{top: 30, bottom: 30, left: 30, right: 30}} onPress={this.toggleDrawer.bind(this)}>
-            {/*Donute Button Image */}
+            {}
             <Image 
                 style={{
                     width: 15,
@@ -63,9 +57,7 @@ class HeaderNews extends Component {
 }
 
 
-//Stack Navigator for the First Option of Navigation Drawer
 const Home_StackNavigator = createStackNavigator({
-    //All the screen from the First Option will be indexed here
     Home: {
       screen: HomeView,
       navigationOptions: ({ navigation }) => ({
@@ -131,21 +123,11 @@ const RegisterStack = createStackNavigator({
   headerMode: 'none'
 });
 
-
-/*
-const PreAppStack = createStackNavigator({
-  pre: PreProfile
-},{
-  headerMode: 'none'
-});
-*/
-
 const AppNavigator = createSwitchNavigator({
     AuthLoader: AuthLoadingScreen,
     Main: BtAppStack,
     Auth: AuthStack,
     Register: RegisterStack
-    //Pre: PreAppStack,
 },{
 
 });
