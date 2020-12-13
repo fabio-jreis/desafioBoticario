@@ -192,31 +192,36 @@ export default HomeView = (props) => {
       }
 
       const editePost = (id) => {
-         var message = posts[id].message.content;
-         set_text(message);
-         set_flagPost(1);
-         set_idEditPost(id);
+
+         var auxPost = posts;
+         for (var i = 0; i < auxPost.length; i++) {
+            
+            var obj = auxPost[i];
+
+            if(obj.id === id) {
+               
+               var message = obj.message.content;
+               set_text(message);
+               set_flagPost(1);
+               set_idEditPost(id);
+               break;
+            }
+         }
       }
 
       return(
           <View style={{paddingLeft: 30, marginRight: 30, marginBottom: 25}}>
               
-              {item.idUsuario === 6 && 
+            <View style={{flex: 1, flexDirection: 'row'}}>
                <TouchableOpacity onPress={() => {deletePost(item.id)}}>
                      <Text>APAGAR</Text>
-               </TouchableOpacity>
-              }
-<View style={{flex: 1, flexDirection: 'row'}}>
-   <TouchableOpacity onPress={() => {deletePost(item.id)}}>
-         <Text>APAGAR</Text>
-   </TouchableOpacity>    
+               </TouchableOpacity>    
 
-   <TouchableOpacity style={{marginLeft: 10}} onPress={() => {editePost(item.id)}}>
-         <Text>EDITAR</Text>
-   </TouchableOpacity>  
-</View>
-              
-              
+               <TouchableOpacity style={{marginLeft: 10}} onPress={() => {editePost(item.id)}}>
+                     <Text>EDITAR</Text>
+               </TouchableOpacity>  
+            </View>
+
               <View style={styles.card}>
 
                   <View style={{flex: 0.30, flexDirection: 'row'}}>
